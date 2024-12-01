@@ -2,6 +2,11 @@ name = "todo-sample"
 main = "src/index.ts"
 compatibility_date = "2024-11-30"
 
+[[d1_databases]]
+binding = "DB"
+database_name = "todo-sample"
+database_id = "9573a674-fc94-413a-b5eb-4d446bcaf4b0"
+
 # compatibility_flags = [ "nodejs_compat" ]
 
 # [vars]
