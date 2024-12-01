@@ -1,4 +1,5 @@
 import { Hono } from "hono";
+import { hc } from "hono/client";
 import { renderToString } from "react-dom/server";
 import { api } from "./api";
 
@@ -8,10 +9,7 @@ type Env = {
 	};
 };
 
-const app = new Hono<Env>();
-
-app.route("/api", api);
-
+const app = new Hono<Env>().route("/api", api);
 app.get("*", (c) => {
 	return c.html(
 		renderToString(
@@ -26,7 +24,7 @@ app.get("*", (c) => {
 					{import.meta.env.PROD ? (
 						<script type="module" src="/static/client.js" />
 					) : (
-						<script type="module" src="/src/client.tsx" />
+						<script type="module" src="/src/index.client.tsx" />
 					)}
 				</head>
 				<body>
@@ -38,3 +36,6 @@ app.get("*", (c) => {
 });
 
 export default app;
+
+type AppType = typeof app;
+export const client = hc<AppType>("/");
